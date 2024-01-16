@@ -16,7 +16,6 @@ public class Tetrimino : TetrisBase
     private float _lockDelayTime = 0f;
     
     public Transform g;
-
     private void Update()
     {
         if(Pause)
@@ -111,12 +110,13 @@ public class Tetrimino : TetrisBase
         if (Input.GetKeyDown(k1))
         {
             AudioManger.Instance.PlaySound(0);
-            transform.position += new Vector3(distance, 0, 0);
-            Spawan.MyGhostPiece.UpDateGhostPiece(transform.position,transform.rotation);
+            Vector3 originalPosition = GetPos();
+            AddPos(new Vector3(distance, 0, 0));
+            Spawan.MyGhostPiece.UpDateGhostPiece(GetPos(),transform.rotation);
             if (!ValidMove())
             {
-                transform.position -= new Vector3(distance, 0, 0);
-                Spawan.MyGhostPiece.UpDateGhostPiece(transform.position,transform.rotation);
+                SetPos(originalPosition);
+                Spawan.MyGhostPiece.UpDateGhostPiece(GetPos(),transform.rotation);
                 return false;
             }
             return true;
@@ -129,11 +129,12 @@ public class Tetrimino : TetrisBase
         {
             AudioManger.Instance.PlaySound(0);
             transform.RotateAround(transform.TransformPoint(rotatePos),new Vector3(0,0,1),rotate);
-            Spawan.MyGhostPiece.UpDateGhostPiece(transform.position,transform.rotation);
+            Spawan.MyGhostPiece.UpDateGhostPiece(GetPos(),transform.rotation);
             if (!ValidMove())
             {
                 transform.RotateAround(transform.TransformPoint(rotatePos),new Vector3(0,0,1),-rotate);
-                Spawan.MyGhostPiece.UpDateGhostPiece(transform.position,transform.rotation);
+                
+                Spawan.MyGhostPiece.UpDateGhostPiece(GetPos(),transform.rotation);
                 return false;
             }
             return true;
@@ -223,5 +224,4 @@ public class Tetrimino : TetrisBase
         }
         return true;
     }
-    
 }

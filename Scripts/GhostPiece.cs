@@ -5,12 +5,12 @@ public class GhostPiece : TetrisBase
 
     private void Start()
     {
-        UpDateGhostPiece(transform.position,transform.rotation);
+        UpDateGhostPiece(GetPos(),transform.rotation);
     }
 
     public void UpDateGhostPiece(Vector3 pos, Quaternion rot)
     {
-        transform.position = pos;
+        SetPos(pos);
         transform.rotation = rot;
         _upDatePos = false;
         while (!_upDatePos)

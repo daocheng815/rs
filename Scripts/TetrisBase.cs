@@ -1,11 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class TetrisBase : MonoBehaviour
+public abstract class TetrisBase : MonoBehaviour
 {
     public static bool Pause = false;
     protected const int W = 10, H = 20;
-    public static Transform[,] Grid = new Transform[W, H + W];
-    
+    protected static readonly Transform[,] Grid = new Transform[W, H + W];
+    protected Vector3 GetPos()
+    {
+        return transform.position;
+    }
+    protected void SetPos(Vector3 v3)
+    {
+        transform.position = v3;
+    }
+
+    protected void AddPos(Vector3 v3)
+    {
+        SetPos(GetPos() + v3);
+    }
     /// <summary>
     /// 判斷邊界是否超越限制，以及是否在陣列內有方塊
     /// </summary>
